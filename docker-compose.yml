@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  redis:
+    image: redis:7
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+  realtime:
+    build: ../realtime
+    ports:
+      - '4000:4000'
+    environment:
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
